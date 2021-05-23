@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  description: "Branch management API"
+  description: "List, create, delete and merge branches"
   version: "1.0.0"
-  title: "Testim Merge API"
+  title: "Testim.io branch API"
   contact:
       email: "support@testim.io"
 servers:
@@ -171,7 +171,8 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
-
+security:
+  - apiKeyAuth: []
 
 components:
   responses:
@@ -259,3 +260,9 @@ components:
       required: 
         - string
         - error
+  
+  securitySchemes:
+      apiKeyAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: PAK-[RANDOM_KEY]
