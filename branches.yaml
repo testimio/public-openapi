@@ -12,6 +12,8 @@ paths:
       post:
         summary: Creates a new branch
         description: Forks source branch into a new branch
+        tags:
+          - Branches
         requestBody:
           required: true
           content:
@@ -59,6 +61,8 @@ paths:
       get:
         summary: List branches
         description: List all project branches
+        tags:
+          - Branches
         responses:
           '200':
             description: List
@@ -88,45 +92,12 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
-
-    /branches/{branch}:
-      delete:
-        summary: Delete the given branch
-        parameters:
-          - in: path
-            name: branch
-            required: true
-            schema:
-              description: The name of the branch to delete
-              example: 'CMPNY-23_fix_signin_form'
-              type: string
-        responses:
-          '200':
-            description: Deleted
-            content:
-                application/json:
-                  schema:
-                    type: object
-                    properties:
-                      metaData:
-                        $ref: '#/components/schemas/metaData'
-          '400':
-            $ref: '#/components/responses/InvalidOrMissingProperty'
-          '404':
-            $ref: '#/components/responses/BranchDoesNotExist'
-          '401':
-            $ref: '#/components/responses/InvalidApiKey'
-          '403':
-            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
-          '429':
-            $ref: '#/components/responses/TooManyRequests'
-
-
-
     /branches/merge:
       put:
         summary: Merge branches
         description: Merge source into target branch
+        tags:
+          - Branches
         requestBody:
           required: true
           content:
@@ -164,6 +135,85 @@ paths:
             $ref: '#/components/responses/BranchDoesNotExist'
           '405':
             $ref: '#/components/responses/BranchMergeError'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+    /branches/{branch}:
+      delete:
+        summary: Delete the given branch
+        tags:
+          - Branches
+        parameters:
+          - in: path
+            name: branch
+            required: true
+            schema:
+              description: The name of the branch to delete
+              example: 'CMPNY-23_fix_signin_form'
+              type: string
+        responses:
+          '200':
+            description: Deleted
+            content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '404':
+            $ref: '#/components/responses/BranchDoesNotExist'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+    /tests:
+      get:
+        summary: List tests
+        description: List test names and Id's of given brance
+        tags:
+          - tests
+        parameters:
+        - name: branch
+          in: query
+          required: false
+          description: The name of brnach to list tests of.
+          example: 'CMPNY-23_fix_signin_form'
+          schema:
+            type : string
+            default: master
+        responses:
+          '200':
+            description: Test list
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      tests:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              description: Test name
+                            _id:
+                              type: string
+                              description: Test ID
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
           '401':
             $ref: '#/components/responses/InvalidApiKey'
           '403':
@@ -232,11 +282,11 @@ components:
           $ref: '#/components/schemas/requestId'
       required:
         - requestId
-  # Date resource was created at
+    # Date resource was created at
     created_at:
       type: string
       example: "2020-10-13T16:52:47.571Z"
-  # Date resource was modified at
+    # Date resource was modified at
     modified_at:
       type: string
       example: "2020-10-19T17:43:51.997Z"
