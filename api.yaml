@@ -179,14 +179,14 @@ paths:
     /tests:
       get:
         summary: List tests
-        description: List test names and Id's of given brance
+        description: List test names and ID's of given brance
         tags:
           - tests
         parameters:
         - name: branch
           in: query
           required: false
-          description: The name of brnach to list tests of.
+          description: The name of branch to list tests of.
           example: 'CMPNY-23_fix_signin_form'
           schema:
             type : string
