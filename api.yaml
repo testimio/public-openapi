@@ -179,7 +179,7 @@ paths:
     /tests:
       get:
         summary: List tests
-        description: List test names and ID's of given branch
+        description: "List the test names and ID's of a given branch"
         tags:
           - Tests
         parameters:
