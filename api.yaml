@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  description: "List, create, delete and merge branches"
+  description: "Testim.io Public API for branches and tests"
   version: "1.0.0"
-  title: "Testim.io branch API"
+  title: "Testim.io Public API"
   contact:
       email: "support@testim.io"
 servers:
@@ -179,9 +179,9 @@ paths:
     /tests:
       get:
         summary: List tests
-        description: List test names and ID's of given brance
+        description: List test names and ID's of given branch
         tags:
-          - tests
+          - Tests
         parameters:
         - name: branch
           in: query
@@ -220,6 +220,16 @@ paths:
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '429':
             $ref: '#/components/responses/TooManyRequests'
+
+tags:
+  - name: Branches
+    description: List, create, delete and merge branches
+    externalDocs:
+      url: http://docs.my-api.com/pet-operations.htm
+  - name: Tests
+    description: List tests by branch
+    externalDocs:
+      url: http://docs.my-api.com/store-orders.htm
 
 security:
   - apiKeyAuth: []
