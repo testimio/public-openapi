@@ -224,12 +224,8 @@ paths:
 tags:
   - name: Branches
     description: List, create, delete and merge branches
-    externalDocs:
-      url: http://docs.my-api.com/pet-operations.htm
   - name: Tests
     description: List tests by branch
-    externalDocs:
-      url: http://docs.my-api.com/store-orders.htm
 
 security:
   - apiKeyAuth: []
