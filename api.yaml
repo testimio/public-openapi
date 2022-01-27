@@ -220,12 +220,146 @@ paths:
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '429':
             $ref: '#/components/responses/TooManyRequests'
+            
+    /search/tests:
+      get:
+        summary: Get tests by name
+        description: "List the ID and link of tests matching the given name"
+        tags:
+          - Search
+        parameters:
+        - name: name
+          in: query
+          required: true
+          description: The name of test to search.
+          example: 'test'
+          schema:
+            type : string
+        responses:
+          '200':
+            description: Test list
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      tests:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Test ID
+                            link:
+                              type: string
+                              description: Link to open test in Testim editor
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+    /search/suites:
+      get:
+        summary: Get suites by name
+        description: "List the ID and link of suites matching the given name"
+        tags:
+          - Search
+        parameters:
+        - name: name
+          in: query
+          required: true
+          description: The name of suites to search.
+          example: 'suite'
+          schema:
+            type : string
+        responses:
+          '200':
+            description: Suite list
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      suites:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Suite ID
+                            link:
+                              type: string
+                              description: Link to open suite in Testim editor
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+    /search/test-plans:
+      get:
+        summary: Get test-plans by name
+        description: "List the ID and link of test-plans matching the given name"
+        tags:
+          - Search
+        parameters:
+        - name: name
+          in: query
+          required: true
+          description: The name of test-plans to search.
+          example: 'plan'
+          schema:
+            type : string
+        responses:
+          '200':
+            description: Test-plan list
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      testPlans:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Test-plan ID
+                            link:
+                              type: string
+                              description: Link to open test-plan in Testim editor
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
 
 tags:
   - name: Branches
     description: List, create, delete and merge branches
   - name: Tests
     description: List tests by branch
+  - name: Search
+    description: Search your Testim entities
 
 security:
   - apiKeyAuth: []
