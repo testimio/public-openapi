@@ -356,22 +356,266 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
+    /executions/tests/{testId}:
+      post:
+        summary: Execute test remotely
+        tags:
+          - Executions
+          - Tests
+        requestBody:
+          $ref: '#/components/requestBodies/ExecuteParameters'
+        parameters:
+          - in: path
+            name: testId
+            required: true
+            schema:
+              description: The ID of the test to execute
+              example: 'TEST_ID'
+              type: string
+        responses:
+          '200':
+            description: Execution result
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      executionId:
+                        type: string
+                        description: The ID of the new execution
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+    /executions/suites/{suiteId}:
+      post:
+        summary: Execute suites remotely
+        tags:
+          - Executions
+          - Suites
+        requestBody:
+          $ref: '#/components/requestBodies/ExecuteParameters'
+        parameters:
+          - in: path
+            name: suiteId
+            required: true
+            schema:
+              description: The ID of the suite to execute
+              example: 'SUITE_ID'
+              type: string
+        responses:
+          '200':
+            description: Execution result
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      executionId:
+                        type: string
+                        description: The ID of the new execution
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+    /executions/labels/{label}:
+      post:
+        summary: Execute labels remotely
+        tags:
+          - Executions
+          - Labels
+        requestBody:
+          $ref: '#/components/requestBodies/ExecuteParameters'
+        parameters:
+          - in: path
+            name: label
+            required: true
+            schema:
+              description: The name of the label to execute
+              example: 'LABEL'
+              type: string
+        responses:
+          '200':
+            description: Execution result
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      executionId:
+                        type: string
+                        description: The ID of the new execution
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+    /executions/test-plans/{planId}:
+      post:
+        summary: Execute test plans remotely
+        tags:
+          - Executions
+          - Test plans
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  branch:
+                    description: The name of the branch to execute tests from
+                    default: master
+                    type: string
+                  parallel:
+                    description: The amount of tests to execute concurrently.
+                    default: 1
+                    type: number
+                  params:
+                    description: A JSON object (or stringified object) of parameters to add to the execution.
+                    oneOf:
+                      - type: string
+                      - type: object
+                  resultLabels:
+                    description: Labels to append to the execution result
+                    type: array
+                    items:
+                      type: string
+                  retries:
+                      description: The amount of retries to allow per test.
+                      type: number
+                  timeout:
+                      description: The amount of seconds before a test will timeout.
+                      default: 600
+                      type: number
+                  turboMode:
+                      description: Wether to execute using Turbo Mode or not.
+                      default: false
+                      type: boolean
+        parameters:
+          - in: path
+            name: planId
+            required: true
+            schema:
+              description: The ID of the test plan to execute
+              example: 'PLAN_ID'
+              type: string
+        responses:
+          '200':
+            description: Execution result
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      executionId:
+                        type: string
+                        description: The ID of the new execution
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
 tags:
   - name: Branches
     description: List, create, delete and merge branches
   - name: Tests
-    description: List tests by branch, and search by test name
+    description: List tests by branch, search by test name, and execute tests
   - name: Test plans
-    description: Search test plans by name
+    description: Search test plans by name, and execute test plans
   - name: Suites
-    description: Search suites by name
+    description: Search suites by name, and execute suites
+  - name: Labels
+    description: Execute labels
   - name: Search
     description: Search Testim entities
+  - name: Executions
+    description: Execute tests, plans, suites, and labels, and get execution results
 
 security:
   - apiKeyAuth: []
 
 components:
+  requestBodies:
+    ExecuteParameters:
+      description: A JSON object containing the execution information
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              baseUrl:
+                description: An optional URL to use instead of default base URL.
+                example: http://demo.com/
+                type: string
+              branch:
+                description: The name of the branch to execute tests from
+                default: master
+                type: string
+              grid:
+                description: The name of grid to use for execution.
+                type: string
+              gridId:
+                description: The ID of grid to use for execution.
+                type: string
+              parallel:
+                description: The amount of tests to execute concurrently.
+                default: 1
+                type: number
+              params:
+                description: A JSON object (or stringified object) of parameters to add to the execution.
+                oneOf:
+                  - type: string
+                  - type: object
+              resultLabels:
+                description: Labels to append to the execution result
+                type: array
+                items:
+                  type: string
+              retries:
+                  description: The amount of retries to allow per test.
+                  type: number
+              testConfig:
+                description: The name of test config to use for execution.
+                type: string
+              testConfigId:
+                description: The ID of test config to use for execution.
+                type: string
+              timeout:
+                  description: The amount of seconds before a test will timeout.
+                  default: 600
+                  type: number
+              turboMode:
+                  description: Wether to execute using Turbo Mode or not.
+                  default: false
+                  type: boolean
   responses:
     # Errors
     BranchAlreadyExists:
