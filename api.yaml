@@ -356,6 +356,112 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
+    /executions/{executionId}:
+      get:
+        summary: Get execution results
+        description: Get the result of an execution, together with its failing tests, with a list of the failed steps of the test
+        tags:
+          - Executions
+        parameters:
+          - in: path
+            name: executionId
+            required: true
+            schema:
+              description: The ID of the execution to get details
+              example: 'EXECUTION_ID'
+              type: string
+        responses:
+          '200':
+            description: Execution result
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      branch:
+                        type: string
+                        description: The branch of the tests executed
+                        example: master
+                      execution:
+                        type: string
+                        description: The name of the execution
+                        example: remote-run
+                      concurrency:
+                        type: number
+                        description: The amount of tests executed in parallel
+                        example: 1
+                      executionResult:
+                        type: string
+                        description: Wether the execution passed or failed
+                        example: Failed
+                      browser:
+                        type: string
+                        description: The name of the browser the tests were executed in
+                        example: chrome
+                      failedCount:
+                        type: number
+                        description: The amount of failed tests
+                        example: 1
+                      totalTests:
+                        type: number
+                        description: The amount of tests executed
+                        example: 1
+                      link:
+                        type: string
+                        description: A link to the execution result in Testim editor
+                      duration:
+                        type: number
+                        description: The amount of time (MS) the execution took
+                      failedTests:
+                        type: array
+                        description: A list of the failed tests
+                        items:
+                          type: object
+                          properties:
+                            testName:
+                              type: string
+                              description: The name of the failed test
+                            testStatus:
+                              type: string
+                              description: The status of the test (active, draft, evaluating, quarantine)
+                              example: draft
+                            errorMessage:
+                              type: string
+                              description: The error message with test failure reason
+                            executionResult:
+                              type: string
+                              description: Wether the execution passed or failed
+                            link:
+                              type: string
+                              description: A link to the test result in Testim editor
+                            duration:
+                              type: number
+                              description: The amount of time (MS) the test took
+                            failedSteps:
+                              type: array
+                              description: A list of the failed steps in the test
+                              items:
+                                type: object
+                                properties:
+                                  reason:
+                                    type: string
+                                    description: The reason the step failed
+                                  name:
+                                    type: string
+                                    description: The name of the failing step
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '404':
+            $ref: '#/components/responses/ExecutionDoesNotExist'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
     /executions/tests/{testId}:
       post:
         summary: Execute test remotely
@@ -656,6 +762,12 @@ components:
             $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: 'Project or API key rate limiting has been reached'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ExecutionDoesNotExist:
+      description: Specified execution ID does not exist
       content:
         application/json:
           schema:
