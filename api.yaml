@@ -226,7 +226,6 @@ paths:
         summary: Get tests by name
         description: "List the ID and link of tests matching the given name"
         tags:
-          - Search
           - Tests
         parameters:
         - name: name
@@ -271,7 +270,6 @@ paths:
         summary: Get suites by name
         description: "List the ID and link of suites matching the given name"
         tags:
-          - Search
           - Suites
         parameters:
         - name: name
@@ -316,7 +314,6 @@ paths:
         summary: Get test-plans by name
         description: "List the ID and link of test-plans matching the given name"
         tags:
-          - Search
           - Test plans
         parameters:
         - name: name
@@ -466,7 +463,6 @@ paths:
       post:
         summary: Execute test remotely
         tags:
-          - Executions
           - Tests
         requestBody:
           $ref: '#/components/requestBodies/ExecuteParameters'
@@ -504,7 +500,6 @@ paths:
       post:
         summary: Execute suites remotely
         tags:
-          - Executions
           - Suites
         requestBody:
           $ref: '#/components/requestBodies/ExecuteParameters'
@@ -542,7 +537,6 @@ paths:
       post:
         summary: Execute labels remotely
         tags:
-          - Executions
           - Labels
         requestBody:
           $ref: '#/components/requestBodies/ExecuteParameters'
@@ -580,9 +574,9 @@ paths:
       post:
         summary: Execute test plans remotely
         tags:
-          - Executions
           - Test plans
         requestBody:
+          description: A JSON object containing the execution setup information.
           required: true
           content:
             application/json:
@@ -659,10 +653,8 @@ tags:
     description: Search suites by name, and execute suites
   - name: Labels
     description: Execute labels
-  - name: Search
-    description: Search Testim entities
   - name: Executions
-    description: Execute tests, plans, suites, and labels, and get execution results
+    description: Get execution results
 
 security:
   - apiKeyAuth: []
@@ -670,7 +662,7 @@ security:
 components:
   requestBodies:
     ExecuteParameters:
-      description: A JSON object containing the execution information
+      description: A JSON object containing the execution setup information.<br>Must provide a Grid or Grid ID.
       required: true
       content:
         application/json:
