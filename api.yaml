@@ -353,7 +353,7 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
-    /executions/{executionId}:
+    /runs/executions/{executionId}:
       get:
         summary: Get execution results
         description: Get the result of an execution, together with its failing tests, with a list of the failed steps of the test
@@ -406,6 +406,9 @@ paths:
                       link:
                         type: string
                         description: A link to the execution result in Testim editor
+                      turboMode:
+                        type: boolean
+                        description: Wether the execution used Testim's Turbo Mode or not
                       duration:
                         type: number
                         description: The amount of time (MS) the execution took
@@ -418,10 +421,6 @@ paths:
                             testName:
                               type: string
                               description: The name of the failed test
-                            testStatus:
-                              type: string
-                              description: The status of the test (active, draft, evaluating, quarantine)
-                              example: draft
                             errorMessage:
                               type: string
                               description: The error message with test failure reason
@@ -431,9 +430,6 @@ paths:
                             link:
                               type: string
                               description: A link to the test result in Testim editor
-                            duration:
-                              type: number
-                              description: The amount of time (MS) the test took
                             failedSteps:
                               type: array
                               description: A list of the failed steps in the test
@@ -459,7 +455,7 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
-    /executions/tests/{testId}:
+    /tests/run/{testId}:
       post:
         summary: Execute test remotely
         tags:
@@ -496,7 +492,7 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
-    /executions/suites/{suiteId}:
+    /suites/run/{suiteId}:
       post:
         summary: Execute suites remotely
         tags:
@@ -533,7 +529,7 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
-    /executions/labels/{label}:
+    /labels/run/{label}:
       post:
         summary: Execute labels remotely
         tags:
@@ -570,7 +566,7 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
-    /executions/test-plans/{planId}:
+    /test-plans/run/{planId}:
       post:
         summary: Execute test plans remotely
         tags:
