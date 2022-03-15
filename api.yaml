@@ -220,7 +220,60 @@ paths:
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '429':
             $ref: '#/components/responses/TooManyRequests'
-            
+
+    /tests/{testId}/status:
+      put:
+        summary: Change the test-status
+        description: "Change the status (active, draft, evaluating, quarantine) of a test by test ID"
+        tags:
+          - Tests
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  branch:
+                    description: The name of the branch on which to update the test
+                    example: feature-234_login_form
+                    default: master
+                    type: string
+                  status:
+                    description: The new test-status to set the test to
+                    example: evaluating
+                    type: string
+                required:
+                  - status
+        parameters:
+          - in: path
+            name: testId
+            required: true
+            schema:
+              description: The ID of the test to update
+              example: 'KmgBvUZJvTu83Lox'
+              type: string
+        responses:
+          200:
+            description: Test status updated
+            content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      response:
+                        type: string
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          400:
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          401:
+            $ref: '#/components/responses/InvalidApiKey'
+          403:
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          429:
+            $ref: '#/components/responses/TooManyRequests'
+
     /tests/search:
       get:
         summary: Get tests by name
