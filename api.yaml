@@ -661,6 +661,9 @@ paths:
                       description: Wether to execute using Turbo Mode or not.
                       default: false
                       type: boolean
+                  mode:
+                      $ref: '#/components/schemas/executionMode'
+
         parameters:
           - in: path
             name: planId
@@ -834,6 +837,9 @@ components:
     modified_at:
       type: string
       example: "2020-10-19T17:43:51.997Z"
+    executionMode:
+      type: string
+      enum: ["extension", "selenium"]
     # Schema for error response body
     Error:
       type: object
