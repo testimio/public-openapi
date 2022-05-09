@@ -458,7 +458,7 @@ paths:
     /runs/tests/{testResultId}:
       get:
         summary: Get test result
-        description: Get the result of a test, together with all its steps. 
+        description: Get the result of a test, together with all its steps. <br> To retrieve the run parameters as well, specify "runParams=true"
         tags:
           - Executions
         parameters:
@@ -469,6 +469,12 @@ paths:
               description: The ID of the result to get details
               example: 'RESULT_ID'
               type: string
+          - in: query
+            name: runParams
+            schema:
+              description: Retrieve the test's run parameters  
+              example: false 
+              type: boolean
         responses:
           '200':
             description: Test result
@@ -519,10 +525,6 @@ paths:
                         testStatus:
                           type: string
                           description: e.g Draft, Evaluating, Active, Quarantine
-                        failedStepsName:
-                          type: array
-                          items:
-                            type: string
                         browser:
                           type: string
                           example: chrome
@@ -539,6 +541,8 @@ paths:
                                 type: string
                               type: 
                                 type: string
+                              treatAsWarning: 
+                                type: boolean
                               description: 
                                 type: string
                               sharedStep: 
@@ -550,12 +554,16 @@ paths:
                                 type: string
                                 description: Could be 'Passed' or 'Failed'
                                 example: Passed
+                              errorMessage:
+                                type: string
                               tabURL: 
                                 type: string
                               screenshot: 
                                 type: string
                               path: 
-                                type: string
+                                type: array
+                                items: 
+                                  type: string
                     metaData:
                       $ref: '#/components/schemas/metaData'
 
