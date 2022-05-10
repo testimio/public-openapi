@@ -521,7 +521,9 @@ paths:
                       browser:
                         type: array
                         description: The name of the browser the tests were executed in
-                        example: ["chrome"]
+                        items:
+                         type: string
+                         example: chrome
                       startTime:
                         type: string
                         description: the state time of the execution
@@ -537,7 +539,9 @@ paths:
                       resultLabels:
                         type: array
                         description: hold the result labels as array of string for the execution if exists 
-                        example: []
+                        items:
+                          type: string
+                          example: scheduler-run
                       link:
                         type: string
                         description: A link to the execution result in Testim editor
