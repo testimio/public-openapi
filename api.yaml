@@ -406,6 +406,170 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
+    /runs/executions:
+      get:
+        summary: Get executions results
+        description: Get the list of executions runs, 
+        tags:
+          - Executions
+        parameters:
+          - in: query
+            name: page
+            required: false
+            schema:
+              description: the page number 
+              default: 0
+              example: '0'
+              type: string
+          - in: query
+            name: pageSize
+            required: false
+            schema:
+              description: total rows to get on each page.
+              default: 200
+              example: '300'
+              type: string
+          - in: query
+            name: fromDate
+            required: false
+            schema:
+              description: filter data from this given date
+              default: start of today
+              example: '2020-05-01'
+              format:  YYYY-MM-DD, MM-DD-YYYY
+              type: string
+          - in: query
+            name: toDate
+            required: false
+            schema:
+              description: filter date to this date
+              default: end of today
+              example: '2020-05-01'
+              type: string
+          - in: query
+            name: status
+            required: false
+            schema:
+              description: execution status to filter by.
+              example: passed
+              type: string
+
+          - in: query
+            name: browser
+            required: false
+            schema:
+              description: browser name to filter by.
+              example: 
+              type: string
+
+          - in: query
+            name: name
+            schema:
+              description: execution name to filter by.
+              example: 
+              type: string
+
+          - in: query
+            name: resultLabel
+            schema:
+              description: resultLabel or multi resultLabels to filter by.
+              example: 
+              type: string
+          - in: query
+            name: branch
+            schema:
+              description: branch name or multi branch names to filter by.
+              example: master
+              type: string
+        responses:
+          '200':
+            description: Execution result
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      branch:
+                        type: string
+                        description: The branch of the tests executed
+                        example: master
+                      execution:
+                        type: string
+                        description: The name of the execution
+                        example: remote-run
+                      concurrency:
+                        type: number
+                        description: The amount of tests executed in parallel
+                        example: 1
+                      executionResult:
+                        type: string
+                        description: Wether the execution passed or failed
+                        example: Failed
+                      browser:
+                        type: string
+                        description: The name of the browser the tests were executed in
+                        example: chrome
+                      failedCount:
+                        type: number
+                        description: The amount of failed tests
+                        example: 1
+                      totalTests:
+                        type: number
+                        description: The amount of tests executed
+                        example: 1
+                      link:
+                        type: string
+                        description: A link to the execution result in Testim editor
+                      turboMode:
+                        type: boolean
+                        description: Wether the execution used Testim's Turbo Mode or not
+                      duration:
+                        type: number
+                        description: The amount of time (MS) the execution took
+                      failedTests:
+                        type: array
+                        description: A list of the failed tests
+                        items:
+                          type: object
+                          properties:
+                            testName:
+                              type: string
+                              description: The name of the failed test
+                            errorMessage:
+                              type: string
+                              description: The error message with test failure reason
+                            executionResult:
+                              type: string
+                              description: Wether the execution passed or failed
+                            link:
+                              type: string
+                              description: A link to the test result in Testim editor
+                            failedSteps: 
+                              type: array
+                              description: A list of the failed steps in the test
+                              items:
+                                type: object
+                                properties:
+                                  reason:
+                                    type: string
+                                    description: The reason the step failed
+                                  name:
+                                    type: string
+                                    description: The name of the failing step
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '404':
+            $ref: '#/components/responses/ExecutionDoesNotExist'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+
     /runs/executions/{executionId}:
       get:
         summary: Get execution results
