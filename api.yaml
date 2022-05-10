@@ -409,7 +409,7 @@ paths:
     /runs/executions:
       get:
         summary: Get executions results
-        description: Get the list of executions runs, 
+        description: Get the list of executions remote runs.
         tags:
           - Executions
         parameters:
@@ -459,21 +459,19 @@ paths:
             required: false
             schema:
               description: browser name to filter by.
-              example: 
+              example: chrome
               type: string
 
           - in: query
             name: name
             schema:
               description: execution name to filter by.
-              example: 
               type: string
 
           - in: query
             name: resultLabel
             schema:
               description: resultLabel or multi resultLabels to filter by.
-              example: 
               type: string
           - in: query
             name: branch
