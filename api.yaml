@@ -419,16 +419,16 @@ paths:
             schema:
               description: the page number 
               default: 0
-              example: '0'
-              type: string
+              example: 0
+              type: number
           - in: query
             name: pageSize
             required: false
             schema:
               description: total rows to get on each page.
               default: 200
-              example: '300'
-              type: string
+              example: 300
+              type: number
           - in: query
             name: fromDate
             required: false
@@ -483,79 +483,67 @@ paths:
               type: string
         responses:
           '200':
-            description: Execution result
+            description: Executions runs result
             content:
               application/json:
                   schema:
                     type: object
                     properties:
-                      branch:
-                        type: string
-                        description: The branch of the tests executed
-                        example: master
                       execution:
                         type: string
                         description: The name of the execution
                         example: remote-run
-                      concurrency:
-                        type: number
-                        description: The amount of tests executed in parallel
-                        example: 1
+                      executionId:
+                        type: string
+                        description: The id of the execution
+                        example: OSApM0g8f3FRQnvN
                       executionResult:
                         type: string
                         description: Wether the execution passed or failed
                         example: Failed
-                      browser:
-                        type: string
-                        description: The name of the browser the tests were executed in
-                        example: chrome
-                      failedCount:
+                      duration:
                         type: number
-                        description: The amount of failed tests
-                        example: 1
+                        description: The amount of time (MS) the execution took
                       totalTests:
                         type: number
                         description: The amount of tests executed
                         example: 1
-                      link:
+                      failedCount:
+                        type: number
+                        description: The amount of failed tests
+                        example: 1
+                      concurrency:
+                        type: number
+                        description: The amount of tests executed in parallel
+                        example: 1
+                      branch:
                         type: string
-                        description: A link to the execution result in Testim editor
+                        description: The branch of the tests executed
+                        example: master
+                      browser:
+                        type: array
+                        description: The name of the browser the tests were executed in
+                        example: ["chrome"]
+                      startTime:
+                        type: string
+                        description: the state time of the execution
+                        example: 2022-05-10T02:39:54.483Z
                       turboMode:
                         type: boolean
                         description: Wether the execution used Testim's Turbo Mode or not
-                      duration:
-                        type: number
-                        description: The amount of time (MS) the execution took
-                      failedTests:
+                        example: false
+                      success:
+                        type: boolean
+                        description: indication of the execution result
+                        example: false
+                      resultLabels:
                         type: array
-                        description: A list of the failed tests
-                        items:
-                          type: object
-                          properties:
-                            testName:
-                              type: string
-                              description: The name of the failed test
-                            errorMessage:
-                              type: string
-                              description: The error message with test failure reason
-                            executionResult:
-                              type: string
-                              description: Wether the execution passed or failed
-                            link:
-                              type: string
-                              description: A link to the test result in Testim editor
-                            failedSteps: 
-                              type: array
-                              description: A list of the failed steps in the test
-                              items:
-                                type: object
-                                properties:
-                                  reason:
-                                    type: string
-                                    description: The reason the step failed
-                                  name:
-                                    type: string
-                                    description: The name of the failing step
+                        description: hold the result labels as array of string for the execution if exists 
+                        example: []
+                      link:
+                        type: string
+                        description: A link to the execution result in Testim editor
+
                       metaData:
                         $ref: '#/components/schemas/metaData'
           '400':
