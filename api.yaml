@@ -475,6 +475,12 @@ paths:
               description: Retrieve the test's run parameters  
               example: false 
               type: boolean
+          - in: query  
+            name: stepsResults
+            schema:
+              description: Retrieve the test's steps results
+              example: false 
+              type: boolean
         responses:
           '200':
             description: Test result
