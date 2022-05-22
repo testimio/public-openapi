@@ -458,7 +458,10 @@ paths:
     /runs/tests/{testResultId}:
       get:
         summary: Get test result
-        description: Get the result of a test, together with all its steps. <br> To retrieve the run parameters as well, specify "runParams=true"
+        description: Get the result of a test, together with all its steps. 
+                    <br> To retrieve the run parameters as well, specify "runParams=true".
+                    <br>
+                    <br> *Only remote runs are supported
         tags:
           - Executions
         parameters:
