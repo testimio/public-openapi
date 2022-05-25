@@ -459,7 +459,8 @@ paths:
       get:
         summary: Get test result
         description: Get the result of a test, together with all its steps. 
-                    <br> To retrieve the run parameters as well, specify "runParams=true".
+                    <br> To see run parameters, specify "runParams=true".
+                    <br> To see steps results, specify "stepsResults=true".
                     <br>
                     <br> *Only remote runs are supported
         tags:
