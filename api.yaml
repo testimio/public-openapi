@@ -508,6 +508,139 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
+    /runs/tests/{testResultId}:
+      get:
+        summary: Get test result
+        description: Get the result of a test, together with all its steps. 
+                    <br> To see run parameters, specify "runParams=true".
+                    <br> To see steps results, specify "stepsResults=true".
+                    <br>
+                    <br> *Only remote runs are supported
+        tags:
+          - Executions
+        parameters:
+          - in: path
+            name: testResultId
+            required: true
+            schema:
+              description: The ID of the result to get details
+              example: 'RESULT_ID'
+              type: string
+          - in: query
+            name: runParams
+            schema:
+              description: Retrieve the test's run parameters  
+              example: false 
+              type: boolean
+          - in: query  
+            name: stepsResults
+            schema:
+              description: Retrieve the test's steps results
+              example: false 
+              type: boolean
+        responses:
+          '200':
+            description: Test result
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    testResult:
+                      type: object
+                      properties:
+                        testName:
+                          type: string
+                          description: The name of the test
+                        link:
+                          type: string
+                          description: Link to open test in Testim editor
+                        branch:
+                          type: string
+                          description: The name of the branch to execute tests from
+                        baseURL:
+                          type: string
+                        configuration:
+                          type: string
+                          description: The test configuration name
+                        executionDate:
+                          type: string
+                          example: '2022-12-31'
+                        executionTime:
+                          type: string
+                          example: '10:59:59'
+                        turboMode: 
+                          type: boolean
+                        testResult:
+                          type: string
+                          description: Could be 'Passed' or 'Failed'
+                          example: Passed
+                        errorMessage:
+                          type: string
+                          description: Test result failure message
+                        failureType:
+                          type: string
+                        runParams:
+                          type: object
+                        duration:
+                          type: number
+                          description: In seconds
+                        testStatus:
+                          type: string
+                          description: e.g Draft, Evaluating, Active, Quarantine
+                        browser:
+                          type: string
+                          example: chrome
+                        owner:
+                          type: string
+                          example: rosie@testim.io
+                          description: The owner user email
+                        stepsResults:
+                          type: array
+                          items: 
+                            type: object
+                            properties:
+                              name: 
+                                type: string
+                              type: 
+                                type: string
+                              treatAsWarning: 
+                                type: boolean
+                              description: 
+                                type: string
+                              sharedStep: 
+                                type: boolean
+                              duration: 
+                                type: string
+                                description: In seconds
+                              status: 
+                                type: string
+                                description: Could be 'Passed' or 'Failed'
+                                example: Passed
+                              errorMessage:
+                                type: string
+                              tabURL: 
+                                type: string
+                              screenshot: 
+                                type: string
+                              path: 
+                                type: array
+                                items: 
+                                  type: string
+                    metaData:
+                      $ref: '#/components/schemas/metaData'
+
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '404':
+            $ref: '#/components/responses/TestResultDoesNotExist'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
     /tests/run/{testId}:
       post:
         summary: Execute test remotely
@@ -812,6 +945,12 @@ components:
             $ref: '#/components/schemas/Error'
     ExecutionDoesNotExist:
       description: Specified execution ID does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TestResultDoesNotExist:
+      description: Specified test result ID does not exist
       content:
         application/json:
           schema:
