@@ -946,9 +946,11 @@ paths:
                     type: number
                   params:
                     description: A JSON object (or stringified object) of parameters to add to the execution.
-                    oneOf:
+                    anyOf:
                       - type: string
                       - type: object
+                    example:
+                      paramName: paramValue
                   resultLabels:
                     description: Labels to append to the execution result
                     type: array
@@ -1035,9 +1037,6 @@ components:
                 type: string
               grid:
                 description: The name of grid to use for execution.
-                type: string
-              gridId:
-                description: The ID of grid to use for execution.
                 type: string
               parallel:
                 description: The amount of tests to execute concurrently.
