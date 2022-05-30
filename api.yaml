@@ -1044,9 +1044,11 @@ components:
                 type: number
               params:
                 description: A JSON object (or stringified object) of parameters to add to the execution.
-                oneOf:
+                anyOf:
                   - type: string
                   - type: object
+                example:
+                  paramName: paramValue
               resultLabels:
                 description: Labels to append to the execution result
                 type: array
