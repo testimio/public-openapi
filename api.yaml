@@ -1053,7 +1053,6 @@ paths:
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '429':
             $ref: '#/components/responses/TooManyRequests'
-    /runs/tests/tag/{testResultId}:
       delete:
         summary: Delete a single tag
         description: Delete a single tag
@@ -1143,7 +1142,6 @@ paths:
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '429':
             $ref: '#/components/responses/TooManyRequests'
-    /runs/executions/tag/{executionId}:
       delete:
         summary: Delete failure tags
         description: Delete failure tags of results in an execution
