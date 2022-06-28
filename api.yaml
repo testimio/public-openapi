@@ -1014,25 +1014,32 @@ paths:
               description: The ID of the result to tag failure
               example: 'RESULT_ID'
               type: string
-          - in: body
-            name: type
-            required: true
-            schema: The ID of the failure tag, 
-                    <br>Accepted formats
-                    <br>1 - “Bug in app”
-                    <br>2 - “Environment issue”
-                    <br>3 - “Invalid test data”
-                    <br>4 - “Test design”
-                    <br>5 - “New UI change”
-                    <br>6 - “Other”
-            example: 1
-            type: number
-          - in: body
-            name: description
-            type: string
-          - in: body
-            name: url
-            type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    description: The ID of the failure tag, 
+                      <br>Accepted formats
+                      <br>1 - “Bug in app”
+                      <br>2 - “Environment issue”
+                      <br>3 - “Invalid test data”
+                      <br>4 - “Test design”
+                      <br>5 - “New UI change”
+                      <br>6 - “Other”
+                    example: 1
+                    type: number
+                  description:
+                    type: string
+                    description: description of failure
+                  url:
+                    description: Link to issue
+                    type: string
+                required:
+                  - type
         responses:
           '200':
             description: Updated
@@ -1066,9 +1073,6 @@ paths:
               description: The ID of the result to clear tagged failure
               example: 'RESULT_ID'
               type: string
-          - in: body
-            name: branch
-            type: string
         responses:
           '200':
             description: Deleted
@@ -1103,25 +1107,32 @@ paths:
               description: The ID of the execution to tag failure
               example: 'EXECUTION_ID'
               type: string
-          - in: body
-            name: type
-            required: true
-            schema: The ID of the failure tag, 
-                    <br>Accepted Formats
-                    <br>1 - “Bug in app”
-                    <br>2 - “Environment issue”
-                    <br>3 - “Invalid test data”
-                    <br>4 - “Test design”
-                    <br>5 - “New UI change”
-                    <br>6 - “Other”
-            example: 1
-            type: number
-          - in: body
-            name: description
-            type: string
-          - in: body
-            name: url
-            type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    description: The ID of the failure tag, 
+                      <br>Accepted formats
+                      <br>1 - “Bug in app”
+                      <br>2 - “Environment issue”
+                      <br>3 - “Invalid test data”
+                      <br>4 - “Test design”
+                      <br>5 - “New UI change”
+                      <br>6 - “Other”
+                    example: 1
+                    type: number
+                  description:
+                    type: string
+                    description: description of failure
+                  url:
+                    description: Link to issue
+                    type: string
+                required:
+                  - type
         responses:
           '200':
             description: Updated
@@ -1155,9 +1166,6 @@ paths:
               description: The ID of the execution to clear tagged failure
               example: 'EXECUTION_ID'
               type: string
-          - in: body
-            name: branch
-            type: string
         responses:
           '200':
             description: Deleted
