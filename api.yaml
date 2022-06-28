@@ -1018,7 +1018,7 @@ paths:
             name: type
             required: true
             schema: The ID of the failure tag, 
-                    <br>The accepted Formats:
+                    <br>Accepted formats
                     <br>1 - “Bug in app”
                     <br>2 - “Environment issue”
                     <br>3 - “Invalid test data”
