@@ -1060,9 +1060,6 @@ components:
               testConfig:
                 description: The name of test config to use for execution.
                 type: string
-              testConfigId:
-                description: The ID of test config to use for execution.
-                type: string
               timeout:
                   description: The amount of seconds before a test will timeout.
                   default: 600
