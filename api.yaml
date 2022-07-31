@@ -999,6 +999,193 @@ paths:
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '429':
             $ref: '#/components/responses/TooManyRequests'
+    
+    /runs/tests/tag/{testResultId}:
+      post:
+        summary: Tag test result
+        description: Tag the failure of a test
+        tags:
+          - Results
+        parameters:
+          - in: path
+            name: testResultId
+            required: true
+            schema:
+              description: The ID of the result to tag failure
+              example: 'RESULT_ID'
+              type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    description: The ID of the failure tag, 
+                      <br>Accepted formats
+                      <br>1 - “Bug in app”
+                      <br>2 - “Environment issue”
+                      <br>3 - “Invalid test data”
+                      <br>4 - “Test design”
+                      <br>5 - “New UI change”
+                      <br>6 - “Other”
+                    example: 1
+                    type: number
+                  description:
+                    type: string
+                    description: description of failure
+                  url:
+                    description: Link to issue
+                    type: string
+                required:
+                  - type
+        responses:
+          '200':
+            description: Updated
+            content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '404':
+            $ref: '#/components/responses/BranchDoesNotExist'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+      delete:
+        summary: Delete a single tag
+        description: Delete a single tag
+        tags:
+          - Results
+        parameters:
+          - in: path
+            name: testResultId
+            required: true
+            schema:
+              description: The ID of the result to clear tagged failure
+              example: 'RESULT_ID'
+              type: string
+        responses:
+          '200':
+            description: Deleted
+            content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '404':
+            $ref: '#/components/responses/BranchDoesNotExist'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+    /runs/executions/tag/{executionId}:
+      post:
+        summary: Tag test result in an execution
+        description: Tag the failure of a test results in an execution
+        tags:
+          - Results
+        parameters:
+          - in: path
+            name: executionId
+            required: true
+            schema:
+              description: The ID of the execution to tag failure
+              example: 'EXECUTION_ID'
+              type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    description: The ID of the failure tag, 
+                      <br>Accepted formats
+                      <br>1 - “Bug in app”
+                      <br>2 - “Environment issue”
+                      <br>3 - “Invalid test data”
+                      <br>4 - “Test design”
+                      <br>5 - “New UI change”
+                      <br>6 - “Other”
+                    example: 1
+                    type: number
+                  description:
+                    type: string
+                    description: description of failure
+                  url:
+                    description: Link to issue
+                    type: string
+                required:
+                  - type
+        responses:
+          '200':
+            description: Updated
+            content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '404':
+            $ref: '#/components/responses/BranchDoesNotExist'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+      delete:
+        summary: Delete failure tags
+        description: Delete failure tags of results in an execution
+        tags:
+          - Results
+        parameters:
+          - in: path
+            name: executionId
+            required: true
+            schema:
+              description: The ID of the execution to clear tagged failure
+              example: 'EXECUTION_ID'
+              type: string
+        responses:
+          '200':
+            description: Deleted
+            content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '404':
+            $ref: '#/components/responses/BranchDoesNotExist'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
 
 tags:
   - name: Branches
@@ -1013,6 +1200,8 @@ tags:
     description: Execute labels
   - name: Executions
     description: Get execution results
+  - name: Results
+    description: Tag failure of test results
 
 security:
   - apiKeyAuth: []
