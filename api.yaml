@@ -999,7 +999,7 @@ paths:
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '429':
             $ref: '#/components/responses/TooManyRequests'
-
+    
 tags:
   - name: Branches
     description: List, create, delete and merge branches
