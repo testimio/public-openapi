@@ -1001,7 +1001,7 @@ paths:
             $ref: '#/components/responses/TooManyRequests'
     
     /runs/tests/tag/{testResultId}:
-      post:
+      put:
         summary: Tag test result
         description: Tag the failure of a test
         tags:
@@ -1024,12 +1024,12 @@ paths:
                   type:
                     description: The ID of the failure tag, 
                       <br>Accepted formats
-                      <br>1 - “Bug in app”
-                      <br>2 - “Environment issue”
-                      <br>3 - “Invalid test data”
-                      <br>4 - “Test design”
-                      <br>5 - “New UI change”
-                      <br>6 - “Other”
+                      <br>1 - Bug in app
+                      <br>2 - Environment issue
+                      <br>3 - Invalid test data
+                      <br>4 - Test design
+                      <br>5 - New UI change
+                      <br>6 - Other
                     example: 1
                     type: number
                   description:
@@ -1048,6 +1048,9 @@ paths:
                   schema:
                     type: object
                     properties:
+                      success: 
+                        type: boolean
+                        example: true
                       metaData:
                         $ref: '#/components/schemas/metaData'
           '400':
@@ -1081,6 +1084,9 @@ paths:
                   schema:
                     type: object
                     properties:
+                      success:
+                        type: boolean
+                        example: true
                       metaData:
                         $ref: '#/components/schemas/metaData'
           '400':
@@ -1094,7 +1100,7 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
     /runs/executions/tag/{executionId}:
-      post:
+      put:
         summary: Tag test result in an execution
         description: Tag the failure of a test results in an execution
         tags:
@@ -1141,6 +1147,9 @@ paths:
                   schema:
                     type: object
                     properties:
+                      success:
+                        type: boolean
+                        example: true
                       metaData:
                         $ref: '#/components/schemas/metaData'
           '400':
@@ -1174,6 +1183,9 @@ paths:
                   schema:
                     type: object
                     properties:
+                      success:
+                        type: boolean
+                        example: true
                       metaData:
                         $ref: '#/components/schemas/metaData'
           '400':
