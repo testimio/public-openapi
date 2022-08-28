@@ -728,7 +728,7 @@ paths:
                         example: 1
                       executionResult:
                         type: string
-                        description: Wether the execution passed or failed
+                        description: Whether the execution passed or failed
                         example: Failed
                       browser:
                         type: string
@@ -744,16 +744,16 @@ paths:
                         example: 1
                       link:
                         type: string
-                        description: A link to the execution result in Testim editor
+                        description: A link to the execution result in Testim's editor
                       turboMode:
                         type: boolean
-                        description: Wether the execution used Testim's Turbo Mode or not
+                        description: Whether the execution used Testim's Turbo Mode or not
                       duration:
                         type: number
                         description: The amount of time (MS) the execution took
                       tests:
                         type: array
-                        description: A list of the failed tests
+                        description: A list of the all included tests
                         items:
                           type: object
                           properties:
