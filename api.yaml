@@ -1002,7 +1002,7 @@ paths:
     
     /runs/tests/tag/{testResultId}:
       put:
-        summary: Tag test result
+        summary: Tag failed test result
         description: Tag the failure of a test
         tags:
           - Results
@@ -1101,7 +1101,7 @@ paths:
             $ref: '#/components/responses/TooManyRequests'
     /runs/executions/tag/{executionId}:
       put:
-        summary: Tag test result in an execution
+        summary: Tag failed test results in an execution
         description: Tag the failure of a test results in an execution
         tags:
           - Results
