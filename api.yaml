@@ -681,7 +681,7 @@ paths:
     /v2/runs/executions/{executionId}:
       get:
         summary: Get execution results
-        description: Get the result of an execution, together with its tests, for failed tests a list of the failed steps
+        description: Get all test results in the given execution
         tags:
           - Executions
         parameters:
@@ -700,7 +700,7 @@ paths:
               example: 0
               type: number
           - in: query
-            name: limit
+            name: pageSize
             schema:
               description: limit return test
               default: 200
