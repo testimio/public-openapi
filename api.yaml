@@ -352,13 +352,19 @@ paths:
                     type: object
                     properties:
                       testCaseIds:
-                        type: array
-                        items:
-                          type:
-                            oneOf:
-                              - type: string
-                              - type: integer
-                          example: 1234123
+                        oneOf:
+                          - type: array
+                            items:
+                              type: integer
+                              example: 1234123
+                          - type: array
+                            items:
+                              type: string
+                              example: "Fx34Vc"
+                      branch:
+                        type: string
+                        description: The branch on which the query was run on 
+                        example: 'CMPNY-23_fix_signin_form'
                       metaData:
                         $ref: '#/components/schemas/metaData'
           400:
