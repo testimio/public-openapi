@@ -210,6 +210,9 @@ paths:
                             _id:
                               type: string
                               description: Test ID
+                            labels:
+                              type: string
+                              description: Labels associated with the test
                       metaData:
                         $ref: '#/components/schemas/metaData'
           '400':
@@ -316,6 +319,55 @@ paths:
           '403':
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+    /tms/{testId}/test-cases:
+      get:
+        summary: List all TMS test case IDs
+        description: "List IDs of all TMS test cases associated with the specific test for the specific branch (defaults to master)"
+        tags:
+          - Tests
+        parameters:
+        - name: branch
+          in: query
+          required: false
+          description: The name of the branch with the specific test for which to list the test IDs.
+          example: 'CMPNY-23_fix_signin_form'
+          schema:
+            type : string
+            default: master
+        - in: path
+          name: testId
+          required: true
+          schema:
+            description: The ID of the test to update
+            example: 'KmgBvUZJvTu83Lox'
+            type: string
+        responses:
+          200:
+            description: List of test case IDs
+            content:
+              application/json:
+                  schema:
+                    type: object
+                    properties:
+                      testCaseIds:
+                        type: array
+                        items:
+                          type:
+                            oneOf:
+                              - type: string
+                              - type: integer
+                          example: 1234123
+                      metaData:
+                        $ref: '#/components/schemas/metaData'
+          400:
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          401:
+            $ref: '#/components/responses/InvalidApiKey'
+          403:
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          429:
             $ref: '#/components/responses/TooManyRequests'
 
     /suites/search:
@@ -599,6 +651,17 @@ paths:
                   schema:
                     type: object
                     properties:
+                      executionId:
+                        type: string
+                        description: The execution ID
+                      startTime:
+                        type: string
+                        description: Execution start time in ISO 8601 format
+                        example: 2022-05-10T02:39:54.483Z
+                      source:
+                        type: string
+                        description: The method which of execution initiation  
+                        enum: ["cli", "scheduler", "editor", "remote-run", "local"]
                       branch:
                         type: string
                         description: The branch of the tests executed
@@ -642,6 +705,9 @@ paths:
                         items:
                           type: object
                           properties:
+                            testId:
+                              type: string
+                              description: The test ID
                             testName:
                               type: string
                               description: The name of the failed test
@@ -666,7 +732,28 @@ paths:
                                   name:
                                     type: string
                                     description: The name of the failing step
-                      metaData:
+                            failureType:
+                                    type: string
+                                    description: The type of failure the test was tagged with
+                                    enum: ["Bug in app", "Environment Issue", "Invalid test data", "Test design", "New UI change", "Other"]
+                            failureDescription:
+                                    type: string
+                                    description: User supplied description for the particular failure
+                            linkToFailureIssue:
+                                    type: string
+                                    description: User supplied url to the an issue tracker ticket for the particular issue
+                                    example: 'http://demo.jira.com/issue/234234'
+                            baseUrl:
+                                    type: string
+                                    description: The base URL used
+                                    example: 'https://api.testim.io'
+                            startTime:
+                                    type: string
+                                    description: Test execution start time in ISO 8601 format
+                                    example: 2022-05-10T02:39:54.483Z
+                            duration:
+                                    type: string
+                                    description: Time from startTime to the end of the test
                         $ref: '#/components/schemas/metaData'
           '400':
             $ref: '#/components/responses/InvalidOrMissingProperty'
@@ -678,6 +765,7 @@ paths:
             $ref: '#/components/responses/ExecutionDoesNotExist'
           '429':
             $ref: '#/components/responses/TooManyRequests'
+
     /v2/runs/executions/{executionId}:
       get:
         summary: Get execution results
@@ -714,6 +802,13 @@ paths:
                   schema:
                     type: object
                     properties:
+                      id:
+                        type: string
+                        description: The execution ID
+                      startTime:
+                        type: string
+                        description: Execution start time in ISO 8601 format
+                        example: 2022-05-10T02:39:54.483Z
                       branch:
                         type: string
                         description: The branch of the tests executed
@@ -757,6 +852,9 @@ paths:
                         items:
                           type: object
                           properties:
+                            id:
+                              type: string
+                              description: The test ID
                             testName:
                               type: string
                               description: The name of the test
@@ -769,6 +867,28 @@ paths:
                             link:
                               type: string
                               description: A link to the test result in Testim editor
+                            failureType:
+                                    type: string
+                                    description: The type of failure the test was tagged with
+                                    enum: ["Bug in app", "Environment Issue", "Invalid test data", "Test design", "New UI change", "Other"]
+                            failureDescription:
+                                    type: string
+                                    description: User supplied description for the particular failure
+                            linkToFailureIssue:
+                                    type: string
+                                    description: User supplied url to the an issue tracker ticket for the particular issue
+                                    example: 'http://demo.jira.com/issue/234234'
+                            baseUrl:
+                                    type: string
+                                    description: The base URL used
+                                    example: 'https://api.testim.io'
+                            startTime:
+                                    type: string
+                                    description: Test execution start time in ISO 8601 format
+                                    example: 2022-05-10T02:39:54.483Z
+                            duration:
+                                    type: string
+                                    description: Time from startTime to the end of the test
                             failedSteps:
                               type: array
                               description: A list of the failed steps in the test
@@ -835,6 +955,9 @@ paths:
                     testResult:
                       type: object
                       properties:
+                        testId:
+                          type: string
+                          description: The test ID
                         testName:
                           type: string
                           description: The name of the test
@@ -864,8 +987,6 @@ paths:
                         errorMessage:
                           type: string
                           description: Test result failure message
-                        failureType:
-                          type: string
                         runParams:
                           type: object
                         duration:
@@ -913,6 +1034,22 @@ paths:
                                 type: array
                                 items: 
                                   type: string
+                        failureType:
+                                type: string
+                                description: The type of failure the test was tagged with
+                                enum: ["Bug in app", "Environment Issue", "Invalid test data", "Test design", "New UI change", "Other"]
+                        failureDescription:
+                                type: string
+                                description: The type of failure the test was tagged with
+                        linkToFailureIssue:
+                                type: string
+                                description: User supplied url to the an issue tracker ticket for the particular issue
+                                example: 'http://demo.jira.com/issue/234234'
+                        startTime:
+                                type: string
+                                description: Test execution start time in ISO 8601 format
+                                example: 2022-05-10T02:39:54.483Z
+
                     metaData:
                       $ref: '#/components/schemas/metaData'
 
