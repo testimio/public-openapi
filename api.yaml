@@ -321,7 +321,7 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
-    /tms/{testId}/test-cases:
+    /tests/tms/{testId}/test-cases:
       get:
         summary: List all TMS test case IDs
         description: "List IDs of all TMS test cases associated with the specific test for the specific branch (defaults to master)"
