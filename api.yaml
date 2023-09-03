@@ -1478,7 +1478,7 @@ paths:
           '403':
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '404':
-            $ref: '#/components/responses/TestResultDoesNotExist'
+            $ref: '#/components/responses/AssetDoesNotExist'
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
@@ -1535,7 +1535,7 @@ paths:
           '403':
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '404':
-            $ref: '#/components/responses/TestResultDoesNotExist'
+            $ref: '#/components/responses/AssetDoesNotExist'
           '429':
             $ref: '#/components/responses/TooManyRequests'
 
@@ -1665,6 +1665,12 @@ components:
             $ref: '#/components/schemas/Error'
     TestResultDoesNotExist:
       description: Specified test result ID does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    AssetDoesNotExist:
+      description: Specified asset ID does not exist
       content:
         application/json:
           schema:
