@@ -1425,6 +1425,120 @@ paths:
           '429':
             $ref: '#/components/responses/TooManyRequests'
     
+    /images/screenshots/{projectId}/{testId}/{stepId}/baseline:
+      get:
+        summary: Step baseline screenshot
+        description: Get the baseline screenshot of a step 
+                    <br> To highlight the target element, specify "highlight=true".
+                    <br> 
+                    <br> Can be accessed with API key or with a token from the test extensions API
+        tags:
+          - Images
+        parameters:
+          - in: path
+            name: projectId
+            required: true
+            schema:
+              example: 'PROJECT_ID'
+              type: string
+          - in: path
+            name: testId
+            required: true
+            schema:
+              example: 'TEST_ID'
+              type: string
+          - in: path
+            name: stepId
+            required: true
+            schema:
+              example: 'STEP_ID'
+              type: string
+          - in: query
+            name: token
+            schema:
+              example: TOKEN 
+              type: string
+          - in: query
+            name: highlight
+            schema:
+              example: false 
+              type: boolean
+        responses:
+          '200':
+            description: Baseline screenshot
+            content:
+              image/png:
+                schema:
+                  type: string
+                  format: binary
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '404':
+            $ref: '#/components/responses/TestResultDoesNotExist'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
+    /images/screenshots/{projectId}/{testId}/{stepResultId}/result:
+      get:
+        summary: Step result screenshot
+        description: Get the step result screenshot
+                    <br> To highlight the target element, specify "highlight=true".
+                    <br> 
+                    <br> Can be accessed with API key or with a token from the test extensions API
+        tags:
+          - Images
+        parameters:
+          - in: path
+            name: projectId
+            required: true
+            schema:
+              example: 'PROJECT_ID'
+              type: string
+          - in: path
+            name: testId
+            required: true
+            schema:
+              example: 'TEST_ID'
+              type: string
+          - in: path
+            name: stepResultId
+            required: true
+            schema:
+              example: 'STEP_RESULT_ID'
+              type: string
+          - in: query
+            name: token
+            schema:
+              example: TOKEN 
+              type: string
+          - in: query
+            name: highlight
+            schema:
+              example: false 
+              type: boolean
+        responses:
+          '200':
+            description: step result screenshot
+            content:
+              image/png:
+                schema:
+                  type: string
+                  format: binary
+          '400':
+            $ref: '#/components/responses/InvalidOrMissingProperty'
+          '401':
+            $ref: '#/components/responses/InvalidApiKey'
+          '403':
+            $ref: '#/components/responses/ApiKeyInsufficientPermissions'
+          '404':
+            $ref: '#/components/responses/TestResultDoesNotExist'
+          '429':
+            $ref: '#/components/responses/TooManyRequests'
+
 tags:
   - name: Branches
     description: List, create, delete and merge branches
