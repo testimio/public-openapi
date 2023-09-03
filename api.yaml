@@ -1201,7 +1201,7 @@ paths:
                                   highlightedResult: 
                                     type: string
                                   accessibleUntil: 
-                                    type: number
+                                    type: integer
                                     example: 1693808555043
                               path: 
                                 type: array
