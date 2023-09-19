@@ -1189,6 +1189,20 @@ paths:
                                 type: string
                               screenshot: 
                                 type: string
+                              screenshots: 
+                                type: object
+                                properties:
+                                  baseline: 
+                                    type: string
+                                  result: 
+                                    type: string
+                                  highlightedBaseline: 
+                                    type: string
+                                  highlightedResult: 
+                                    type: string
+                                  accessibleUntil: 
+                                    type: integer
+                                    example: 1693808555043
                               path: 
                                 type: array
                                 items: 
