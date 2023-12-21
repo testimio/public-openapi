@@ -91,8 +91,8 @@ paths:
           - in: path
             name: applicationId
             required: true
+            description: The id of the application to get
             schema:
-              description: The id of the application to get
               example: 'APPLICATION_ID'
         responses:
             '200':
@@ -133,8 +133,8 @@ paths:
           - in: path
             name: applicationId
             required: true
+            description: The id of the application to delete
             schema:
-              description: The id of the application to delete
               example: 'APPLICATION_ID'
         responses:
             '200':
@@ -300,8 +300,8 @@ paths:
           - in: path
             name: branch
             required: true
+            description: The name of the branch to delete
             schema:
-              description: The name of the branch to delete
               example: 'CMPNY-23_fix_signin_form'
               type: string
         responses:
@@ -401,8 +401,8 @@ paths:
           - in: path
             name: testId
             required: true
+            description: The ID of the test to update
             schema:
-              description: The ID of the test to update
               example: 'KmgBvUZJvTu83Lox'
               type: string
         responses:
@@ -488,8 +488,8 @@ paths:
         - in: path
           name: testId
           required: true
+          description: The ID of the test to update
           schema:
-            description: The ID of the test to update
             example: 'KmgBvUZJvTu83Lox'
             type: string
         responses:
@@ -623,24 +623,24 @@ paths:
           - in: query
             name: page
             required: false
+            description: the page number
             schema:
-              description: the page number 
               default: 0
               example: 0
               type: number
           - in: query
             name: pageSize
             required: false
+            description: total rows to get on each page.
             schema:
-              description: total rows to get on each page.
               default: 200
               example: 300
               type: number
           - in: query
             name: fromDate
             required: false
+            description: filter data from this given date
             schema:
-              description: filter data from this given date
               default: start of today
               example: '2020-05-01'
               format:  YYYY-MM-DD, MM-DD-YYYY
@@ -648,44 +648,48 @@ paths:
           - in: query
             name: toDate
             required: false
+            description: filter date to this date
             schema:
-              description: filter date to this date
               default: end of today
               example: '2020-05-01'
               type: string
           - in: query
             name: status
             required: false
+            description: execution status to filter by.
             schema:
-              description: execution status to filter by.
               example: passed
               type: string
 
           - in: query
             name: browser
             required: false
+            description: browser name to filter by.
             schema:
-              description: browser name to filter by.
               example: chrome
               type: string
 
           - in: query
             name: name
+            description: execution name to filter by.
             schema:
-              description: execution name to filter by.
               type: string
 
           - in: query
             name: resultLabel
+            description: resultLabel or multi resultLabels to filter by.
             schema:
-              description: resultLabel or multi resultLabels to filter by.
-              type: string
+              type: array
+              items:
+                type: string
           - in: query
             name: branch
+            description: branch name or multi branch names to filter by.
             schema:
-              description: branch name or multi branch names to filter by.
-              example: master
-              type: string
+              example: [master]
+              type: array
+              items:
+                type: string
         responses:
           '200':
             description: Executions runs result
@@ -794,8 +798,8 @@ paths:
           - in: path
             name: executionId
             required: true
+            description: The ID of the execution to get details
             schema:
-              description: The ID of the execution to get details
               example: 'EXECUTION_ID'
               type: string
         responses:
@@ -931,21 +935,21 @@ paths:
           - in: path
             name: executionId
             required: true
+            description: The ID of the execution to get details
             schema:
-              description: The ID of the execution to get details
               example: 'EXECUTION_ID'
               type: string
           - in: query
             name: page
+            description: the page number
             schema:
-              description: the page number 
               default: 0
               example: 0
               type: number
           - in: query
             name: pageSize
+            description: limit return test
             schema:
-              description: limit return test
               default: 200
               example: 200
               type: number
@@ -1087,20 +1091,20 @@ paths:
           - in: path
             name: testResultId
             required: true
+            description: The ID of the result to get details
             schema:
-              description: The ID of the result to get details
               example: 'RESULT_ID'
               type: string
           - in: query
             name: runParams
+            description: Retrieve the test's run parameters
             schema:
-              description: Retrieve the test's run parameters  
               example: false 
               type: boolean
           - in: query  
             name: stepsResults
+            description: Retrieve the test's steps results
             schema:
-              description: Retrieve the test's steps results
               example: false 
               type: boolean
         responses:
@@ -1248,8 +1252,8 @@ paths:
           - in: path
             name: testId
             required: true
+            description: The ID of the test to execute
             schema:
-              description: The ID of the test to execute
               example: 'TEST_ID'
               type: string
         responses:
@@ -1285,8 +1289,8 @@ paths:
           - in: path
             name: suiteId
             required: true
+            description: The ID of the suite to execute
             schema:
-              description: The ID of the suite to execute
               example: 'SUITE_ID'
               type: string
         responses:
@@ -1322,8 +1326,8 @@ paths:
           - in: path
             name: label
             required: true
+            description: The name of the label to execute
             schema:
-              description: The name of the label to execute
               example: 'LABEL'
               type: string
         responses:
@@ -1399,8 +1403,8 @@ paths:
           - in: path
             name: planId
             required: true
+            description: The ID of the test plan to execute
             schema:
-              description: The ID of the test plan to execute
               example: 'PLAN_ID'
               type: string
         responses:
