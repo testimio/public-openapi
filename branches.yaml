@@ -96,8 +96,8 @@ paths:
           - in: path
             name: branch
             required: true
+            description: The name of the branch to delete
             schema:
-              description: The name of the branch to delete
               example: 'CMPNY-23_fix_signin_form'
               type: string
         responses:
