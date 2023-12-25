@@ -1449,7 +1449,7 @@ security:
 components:
   requestBodies:
     ExecuteParameters:
-      description: A JSON object containing the execution setup information.<br>Must provide a Grid or Grid ID.
+      description: A JSON object containing the execution setup information.<br>Must provide a Grid or Grid ID.<br>Params field size is limited to 67KB.
       required: true
       content:
         application/json:
