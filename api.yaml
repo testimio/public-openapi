@@ -690,6 +690,13 @@ paths:
               type: array
               items:
                 type: string
+          - in: query
+            name: strictNameSearch
+            description: search execution with strict name match
+            required: false
+            schema: 
+              type: boolean
+              default: false 
         responses:
           '200':
             description: Executions runs result
