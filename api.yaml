@@ -340,6 +340,13 @@ paths:
           schema:
             type : string
             default: master
+        - name: includeTestStatus
+          in: query
+          required: false
+          description: Include the status of the test
+          schema:
+            type: boolean
+            default: false
         responses:
           '200':
             description: Test list
@@ -372,7 +379,57 @@ paths:
             $ref: '#/components/responses/ApiKeyInsufficientPermissions'
           '429':
             $ref: '#/components/responses/TooManyRequests'
-
+    
+    /tests/{testId}:
+    get:
+      summary: Fetch test data by test ID
+      description: Retrieves the details of a specific test by its ID. Optionally, a branch name can be specified as a query parameter to fetch test data from a specific branch.
+      parameters:
+        - in: path
+          name: testId
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the test.
+        - in: query
+          name: branch
+          required: false
+          schema:
+            type: string
+            default: master
+          description: The name of the branch to fetch the test information from.
+      responses:
+        '200':
+          description: Successfully retrieved test information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: The name of the test.
+                  owner:
+                    type: string
+                    description: The owner of the test.
+                  status:
+                    type: string
+                    description: The current status of the test (e.g., active, draft).
+              example:
+                name: "Login Test"
+                owner: "example@example.com"
+                status: "active"
+        '404':
+          description: Test not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: "Test {testId} does not exist in branch {branch}"
     /tests/{testId}/status:
       put:
         summary: Change the test-status
@@ -995,6 +1052,18 @@ paths:
                       failedCount:
                         type: number
                         description: The amount of failed tests
+                        example: 1
+                      passedCount:
+                        type: number
+                        description: The amount of passed tests
+                        example: 1
+                      abortedCount:
+                        type: number
+                        description: The amount of aborted tests
+                        example: 1
+                      timedOutTests:
+                        type: number
+                        description: The amount of timed out tests
                         example: 1
                       totalTests:
                         type: number
