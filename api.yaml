@@ -381,44 +381,44 @@ paths:
             $ref: '#/components/responses/TooManyRequests'
     
     /tests/{testId}:
-    get:
-      summary: Fetch test data by test ID
-      description: Retrieves the details of a specific test by its ID. Optionally, a branch name can be specified as a query parameter to fetch test data from a specific branch.
-      parameters:
-        - in: path
-          name: testId
-          required: true
-          schema:
-            type: string
-          description: The unique identifier of the test.
-        - in: query
-          name: branch
-          required: false
-          schema:
-            type: string
-            default: master
-          description: The name of the branch to fetch the test information from.
-      responses:
-        '200':
-          description: Successfully retrieved test information
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  name:
-                    type: string
-                    description: The name of the test.
-                  owner:
-                    type: string
-                    description: The owner of the test.
-                  status:
-                    type: string
-                    description: The current status of the test (e.g., active, draft).
-              example:
-                name: "Login Test"
-                owner: "example@example.com"
-                status: "active"
+      get:
+        summary: Fetch test data by test ID
+        description: Retrieves the details of a specific test by its ID. Optionally, a branch name can be specified as a query parameter to fetch test data from a specific branch.
+        parameters:
+          - in: path
+            name: testId
+            required: true
+            schema:
+              type: string
+            description: The unique identifier of the test.
+          - in: query
+            name: branch
+            required: false
+            schema:
+              type: string
+              default: master
+            description: The name of the branch to fetch the test information from.
+        responses:
+          '200':
+            description: Successfully retrieved test information
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the test.
+                    owner:
+                      type: string
+                      description: The owner of the test.
+                    status:
+                      type: string
+                      description: The current status of the test (e.g., active, draft).
+                example:
+                  name: "Login Test"
+                  owner: "example@example.com"
+                  status: "active"
         '404':
           description: Test not found
           content:
