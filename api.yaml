@@ -384,6 +384,8 @@ paths:
       get:
         summary: Fetch test data by test ID
         description: Retrieves the details of a specific test by its ID. Optionally, a branch name can be specified as a query parameter to fetch test data from a specific branch.
+        tags: 
+          - Tests
         parameters:
           - in: path
             name: testId
