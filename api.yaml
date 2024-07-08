@@ -419,17 +419,17 @@ paths:
                   name: "Login Test"
                   owner: "example@example.com"
                   status: "active"
-        '404':
-          description: Test not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                example:
-                  message: "Test {testId} does not exist in branch {branch}"
+          '404':
+            description: Test not found
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                  example:
+                    message: "Test {testId} does not exist in branch {branch}"
     /tests/{testId}/status:
       put:
         summary: Change the test-status
