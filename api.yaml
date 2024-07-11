@@ -417,6 +417,25 @@ paths:
                     status:
                       type: string
                       description: The current status of the test (e.g., active, draft).
+                    description:
+                      type: string
+                      description: The description of the test.
+                    testId:
+                      type: string
+                      description: The unique identifier of the test.
+                    latestTestResult: 
+                      type: object
+                      description: The latest test result of the test.
+                      properties:
+                        resultId:
+                          type: string
+                          description: The resultId of the latest test result.
+                        testResult:
+                          type: string
+                          description: The result of the latest test result.
+                        failureReason:
+                          type: string
+                          description: The failureReason of the latest test result.
                 example:
                   name: "Login Test"
                   owner: "example@example.com"
