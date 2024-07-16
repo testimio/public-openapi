@@ -430,9 +430,12 @@ paths:
                         resultId:
                           type: string
                           description: The resultId of the latest test result.
-                        testResult:
+                        resultStatus:
                           type: string
                           description: The result of the latest test result.
+                        resultDate:
+                          type: string
+                          description: The date of the latest test result.
                         failureReason:
                           type: string
                           description: The failureReason of the latest test result.
