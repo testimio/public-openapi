@@ -11,3 +11,7 @@ Features:
 - Create new branch (fork from existing branch)
 - Delete branch
 - Merge branch into a second branch
+
+
+
+Can be viewed with Swagger [here](https://editor.swagger.io/?url=https://raw.githubusercontent.com/testimio/public-openapi/main/api.yaml)
