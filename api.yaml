@@ -720,19 +720,19 @@ paths:
           - in: query
             name: fromDate
             required: false
-            description: filter data from this given date
+            description: filter data from this given date (ISO 8601 format)
             schema:
               default: start of today
-              example: '2020-05-01'
-              format:  YYYY-MM-DD, MM-DD-YYYY
+              example: '2020-05-01T00:00:00'
+              format:  YYYY-MM-DD, MM-DD-YYYY, YYYY-MM-DDTHH:MM:SSZ
               type: string
           - in: query
             name: toDate
             required: false
-            description: filter date to this date
+            description: filter date to this date (ISO 8601 format)
             schema:
               default: end of today
-              example: '2020-05-01'
+              example: '2020-05-01T10:00:00'
               type: string
           - in: query
             name: status
