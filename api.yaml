@@ -723,7 +723,7 @@ paths:
             description: filter data from this given date (ISO 8601 format)
             schema:
               default: start of today
-              example: '2020-05-01T00:00:00'
+              example: '05-01-2020, 2020-05-01 or 2020-05-01T00:00:00'
               format:  YYYY-MM-DD, MM-DD-YYYY, YYYY-MM-DDTHH:MM:SSZ
               type: string
           - in: query
@@ -732,7 +732,8 @@ paths:
             description: filter date to this date (ISO 8601 format)
             schema:
               default: end of today
-              example: '2020-05-01T10:00:00'
+              example: '05-01-2020, 2020-05-01 or 2020-05-01T10:00:00'
+              format:  YYYY-MM-DD, MM-DD-YYYY, YYYY-MM-DDTHH:MM:SSZ
               type: string
           - in: query
             name: status
