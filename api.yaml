@@ -7,7 +7,7 @@ info:
       email: "support@testim.io"
 servers:
   - url: 'https://api.testim.io'
-  - url: 'https://api-eu.testim.io'
+  - url: 'https://api.eu.testim.io'
 paths:
     /mobile/applications:
       get:
